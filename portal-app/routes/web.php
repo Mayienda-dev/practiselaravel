@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CmsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,18 @@ Route::prefix('/admin')->group(function(){
 
         // Admin Logout
         Route::get('logout', [AdminController::class, 'logout']);
+
+        // CMS Pages
+        Route::match(['get', 'post'], 'cms-pages', [CmsController::class, 'index']);
+
+        // Add and Edit CMS Pages
+        Route::match(['get', 'post'], 'add-edit-cms-pages/{id?}',[CmsController::class, 'edit']);
+
+        // updateCMSPage Status
+        Route::post('update-cms-status', [CmsController::class, 'update']);
+
+        // Delete CMS Page
+        Route::get('delete-cms-page/{id?}', [CmsController::class, 'destroy']);
 
     });
 

@@ -70,5 +70,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('admin/dist/js/pages/dashboard2.js') }}"></script>
 <script src="{{ url('admin/dist/js/custom.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
