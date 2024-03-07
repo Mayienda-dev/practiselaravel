@@ -18,6 +18,7 @@ class AdminController extends Controller
     public function login(Request $request){
         if($request ->isMethod('post')){
             $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
 
             $rules = [
                 'email' => 'required|email|max:255',
@@ -34,6 +35,17 @@ class AdminController extends Controller
             $this->validate($request, $rules, $customMessages);
 
             if(Auth::guard('admin')->attempt(['email'=>$data['email'], 'password'=>$data['password']])){
+
+                // Setting up cookies for remember me
+                if(isset($data['remember'])&&!empty($data['remember'])){
+
+                    setcookie("email", $data["email"], time()+3600);
+                    setcookie("password", $data["password"], time()+3600);
+
+                }else{
+                    setcookie("email", "");
+                    setcookie("password", "");
+                }
 
                 return redirect('admin/dashboard');
             }else{
