@@ -171,6 +171,12 @@ class AdminController extends Controller
         return view('admin.settings.update_details');
     }
 
+    // Sub admins methods
+    public function subadmin(){
+        $subadmins = Admin::where('type', 'subadmin')->get();
+
+        return view('admin.subadmins.subadmins')->with(compact('subadmins'));
+    }
     // Admin Logout
     public function logout(){
         Auth::guard('admin')->logout();

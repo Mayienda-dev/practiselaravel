@@ -17,15 +17,28 @@ class AdminTableSeeder extends Seeder
         $password = Hash::make('12345678');
 
         $adminRecords = [ 
-            'id'=> 1, 
-            'name'=>'Admin',
-            'type'=>'Super Admin',
-            'staff_id'=>0,
-            'mobile' => '0741984912',
-            'email' => 'admin@admin.com',
-            'password' => $password,
-            'image'=> "",
-            'status'=>1
+            [
+             'id' => 2,
+             'name' => 'John Doe',
+             'type' => 'subadmin',
+             'staff_id' => 0,
+             'mobile' => '0757278442',
+             'email' => 'john@doe.com',
+             'password' => $password,
+             'image' => '',
+             'status' => 1   
+            ],
+            [
+                'id' => 3,
+                'name' => 'Jane Doe',
+                'type' => 'subadmin',
+                'staff_id' => 0,
+                'mobile' => '0797110193',
+                'email' => 'jane@doe.com',
+                'password' => $password,
+                'image' => '',
+                'status' => 1 
+               ],
 
         ];
 

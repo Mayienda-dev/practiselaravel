@@ -64,6 +64,8 @@ Route::prefix('/admin')->group(function(){
         // Delete CMS Page
         Route::get('delete-cms-page/{id?}', [CmsController::class, 'destroy']);
 
+        // Sun admins 
+        Route::get('subadmins', [AdminController::class, 'subadmin']);
     });
 
 });
