@@ -59,7 +59,12 @@
                    
                     <td>{{ date("F j, Y, g:i a", strtotime($subadmin->created_at)); }}</td>
                     <td>
-                     
+                     @if($subadmin->status==1)
+                        <a class="updateSubAdminStatus" href="javascript:void(0)" id="subadmin-{{ $subadmin->id }}" subadmin_id= "{{ $subadmin->id }}"><i class="fas fa-toggle-on" status="Active" style="font-size: 26px;"></i></a>
+                      @else
+                        <a class= "updateSubAdminStatus" href="javascript:void(0)" id="subadmin-{{ $subadmin->id }}" subadmin_id= "
+                        {{ $subadmin->id }}"><i class="fas fa-toggle-off" status="Inactive" style="font-size:26px; color:grey"></i></a>
+                      @endif                     
 
                     </td>
                   </tr>

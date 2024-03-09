@@ -172,10 +172,126 @@ class AdminController extends Controller
     }
 
     // Sub admins methods
+
+    // Sub admin Display method
     public function subadmin(){
         $subadmins = Admin::where('type', 'subadmin')->get();
 
         return view('admin.subadmins.subadmins')->with(compact('subadmins'));
+    }
+
+    // Update Sub Admin Status
+    public function updateSubAdminStatus(Request $request){
+
+        if($request->ajax()){
+
+            $data = $request->all();
+
+            if($data['status']=="Active"){
+                $status = 0;
+            }else{
+                $status = 1;
+            }
+
+            Admin::where('id', $data['subadmin_id'])->update(['status'=>$status]);
+
+            return response()->json(['status'=> $status, 'subadmin_id' => $data['subadmin_id']]);
+
+        }
+
+       
+
+    }
+
+    // Add/edit sub admin
+    public function addEditSubAdmin(Request $request, $id=null){
+        if($id==""){
+            $title = "Add Sub Admin";
+            $subadmindata = new Admin;
+            $message = "Sub admin added succesfully";
+        }else{
+            $title = "Edit Sub Admin Details";
+            $subadmindata = Admin::find($id);
+            $message = "Sub admin data updated succesfully";
+        }
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            if($id==""){
+
+                $subAdminCount = Admin::where('email', $data['email'])->count();
+
+                if($subAdminCount>0){
+
+                    return redirect()->back()->with('error_message', 'Sub admin email already exists');
+                }
+            }
+
+            $rules = [
+                'name' => 'required',
+                'mobile' => 'required|numeric',
+                'email' => 'email|required',
+                'password' => 'required',
+                // 'image' => 'image'
+
+            ];
+
+            $customMessages = [
+                'name.required' => 'Name is required',
+                'mobile.required' => 'Mobile number is required',
+                'mobile.numeric' => 'Valid phone number is required',
+                'email.email' => 'Valid email is required',
+                'email.required' => 'Email is required',
+                // 'image.image' => 'Valid image is required'
+
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
+            // Image set up code
+            if($request->hasFile('admin_image')){
+
+                $manager = new ImageManager(new Driver());
+
+                $image_tmp = $request->file('admin_image');
+
+                if($image_tmp->isValid()){
+
+                    $extension = $image_tmp->getClientOriginalExtension();
+
+                    $image_name = rand(111, 99999).'.'.$extension;
+
+                    $imagepath = 'admin/dist/img/photos/'.$image_name;
+
+                    $image = $manager->read($image_tmp);
+
+                    $image->toPng()->save($imagepath);
+                }
+            }elseif (!empty($data['current_image'])) {
+                $image_name = $data['current_image'];
+            }else{
+                $image_name = "";
+            }
+
+            $subadmindata->image = $image_name;
+            $subadmindata->name = $data['name'];
+            $subadmindata->mobile = $data['mobile'];
+            if ($id == ""){
+                $subadmindata->email = $data['email'];
+                $subadmindata->type = 'subadmin';
+            }
+            if($data['password'] != " "){
+                $subadmindata->password = bcrypt($data['password']);
+            }
+            $subadmindata->staff_id = 0;
+           
+            $subadmindata->status = 1;
+            $subadmindata->save();
+
+            return redirect('admin/subadmins')->with('success_message', $message);
+        }
+        return view('admin.subadmins.add_edit_subadmins')->with(compact('title', 'subadmindata'));
     }
     // Admin Logout
     public function logout(){
