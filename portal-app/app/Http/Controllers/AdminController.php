@@ -233,7 +233,7 @@ class AdminController extends Controller
                 'mobile' => 'required|numeric',
                 'email' => 'email|required',
                 'password' => 'required',
-                // 'image' => 'image'
+                'image' => 'image'
 
             ];
 
@@ -243,38 +243,40 @@ class AdminController extends Controller
                 'mobile.numeric' => 'Valid phone number is required',
                 'email.email' => 'Valid email is required',
                 'email.required' => 'Email is required',
-                // 'image.image' => 'Valid image is required'
+                'image.image' => 'Valid image is required'
 
             ];
 
             $this->validate($request, $rules, $customMessages);
 
             // Image set up code
-            if($request->hasFile('admin_image')){
-
+            if($request->hasFile('image')){
                 $manager = new ImageManager(new Driver());
+    
+                $imageTemp = $request->file('image');
+    
+                if($imageTemp->isValid()){
+    
+                    $extension = $imageTemp->getClientOriginalExtension();
+    
+                    $imagename = rand(111, 99999).'.'.$extension;
+    
+                    $imagePath = 'admin/dist/img/photos/'.$imagename;
+    
+                    $image = $manager->read($imageTemp);
+    
 
-                $image_tmp = $request->file('admin_image');
-
-                if($image_tmp->isValid()){
-
-                    $extension = $image_tmp->getClientOriginalExtension();
-
-                    $image_name = rand(111, 99999).'.'.$extension;
-
-                    $imagepath = 'admin/dist/img/photos/'.$image_name;
-
-                    $image = $manager->read($image_tmp);
-
-                    $image->toPng()->save($imagepath);
+                    $image->toPng()->save($imagePath);
+    
+    
                 }
-            }elseif (!empty($data['current_image'])) {
-                $image_name = $data['current_image'];
+            }else if(!empty($data['current_image'])){
+                $imagename = $data['current_image'];
             }else{
-                $image_name = "";
+                $imagename = "";
             }
-
-            $subadmindata->image = $image_name;
+    
+            $subadmindata->image = $imagename;
             $subadmindata->name = $data['name'];
             $subadmindata->mobile = $data['mobile'];
             if ($id == ""){
@@ -292,6 +294,13 @@ class AdminController extends Controller
             return redirect('admin/subadmins')->with('success_message', $message);
         }
         return view('admin.subadmins.add_edit_subadmins')->with(compact('title', 'subadmindata'));
+    }
+
+    // Delete Sub admin
+    public function deleteSubadmin($id){
+        Admin::where('id', $id)->delete();
+
+        return redirect()->back()->with('success_message', 'subadmin deleted succesfully');
     }
     // Admin Logout
     public function logout(){

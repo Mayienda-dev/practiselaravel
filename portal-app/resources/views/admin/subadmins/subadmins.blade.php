@@ -64,7 +64,12 @@
                       @else
                         <a class= "updateSubAdminStatus" href="javascript:void(0)" id="subadmin-{{ $subadmin->id }}" subadmin_id= "
                         {{ $subadmin->id }}"><i class="fas fa-toggle-off" status="Inactive" style="font-size:26px; color:grey"></i></a>
-                      @endif                     
+                        &nbsp;&nbsp;
+                      @endif 
+                      &nbsp; &nbsp; 
+                      <a href="{{ url('admin/add-edit-subadmins/'.$subadmin->id) }}"><i style ="font-size:26px"class="fa fa-edit"></i></a> 
+                      &nbsp; &nbsp;
+                      <a class="confirmDelete" title = "Delete Sub admin page" name= "Delete Sub admin " href="javascript:void(0)" record= "subadmin" recordid = "{{ $subadmin->id }}"><i style = "font-size:26px" class="bi bi-trash-fill"></i></a>                  
 
                     </td>
                   </tr>

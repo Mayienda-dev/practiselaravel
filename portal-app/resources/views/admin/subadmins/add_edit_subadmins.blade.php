@@ -40,7 +40,7 @@
                     </ul>
                 </div>
             @endif
-            <form name="subAdmin" id="subAdmin" @if(empty($subadmindata['id'])) action="{{ url('admin/add-edit-subadmins') }}" @else action="{{ url('admin/add-edit-subadmins/'.$subadmindata['id']) }}" @endif method="post">
+            <form name="subAdmin" id="subAdmin" @if(empty($subadmindata['id'])) action="{{ url('admin/add-edit-subadmins') }}" @else action="{{ url('admin/add-edit-subadmins/'.$subadmindata['id']) }}" @endif method="post" enctype="multipart/form-data">
                 @csrf
               <div class="card-body">
                 <div class="form-group">
@@ -60,10 +60,11 @@
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" @if(!empty($subadmindata['password'])) value="{{ $subadmindata['password'] }}" @endif>
                   </div>
                   <div class="form-group">
-                   <label for="image">Image</label>
-                   <input type="file" class="form-control" name="admin_image" id="admin_image">
+                   <label for="image">Photo</label>
+                   <input type="file" class="form-control" name="image" id="image">
                    @if(!empty($subadmindata['image']))
                    <a target="_blank" href="{{ url('admin/dist/img/photos/'.$subadmindata['image']) }}">View Photo</a>
+                   @else
                    <input type="hidden" name="current_image" value="{{ $subadmindata['image'] }}">
                    @endif
                   </div>
