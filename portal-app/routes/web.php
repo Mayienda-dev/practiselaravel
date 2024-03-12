@@ -75,6 +75,10 @@ Route::prefix('/admin')->group(function(){
 
         // Delete subadmin
         Route::get('delete-subadmin/{id?}', [AdminController::class, 'deleteSubadmin']);
+
+        // Update Roles and Permissons for Sub admin
+        Route::match(['get', 'post'], 'update-role/{id}', [AdminController::class, 'updateSubadminRoles']);
+       
     });
 
 });

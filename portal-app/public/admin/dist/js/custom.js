@@ -67,9 +67,9 @@ $(document).on("click",".updateSubAdminStatus", function(){
         success:function(resp){
             if(resp['status']==0){
 
-                $("#page-"+subadmin_id).html("<i class = 'fa fa toggle-off' style: 'color:grey'; 'font-size: 26px' status: 'Inactive'></i>");
+                $("#subadmin-"+subadmin_id).html("<i class = 'fas fa-toggle-off' style: 'color:grey'; 'font-size: 26px' status: 'Inactive'></i>");
             }else if(resp['status']==1){
-                $("#page-"+subadmin_id).html("<i class = 'fa fa toggle-on' style:'font-size:26px'; 'color:blue' status: 'Active'></i>");
+                $("#subadmin-"+subadmin_id).html("<i class = 'fas fa-toggle-on' style:'font-size:26px'; 'color:blue' status: 'Active'></i>");
 
             }
            

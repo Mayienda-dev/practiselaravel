@@ -69,7 +69,9 @@
                       &nbsp; &nbsp; 
                       <a href="{{ url('admin/add-edit-subadmins/'.$subadmin->id) }}"><i style ="font-size:26px"class="fa fa-edit"></i></a> 
                       &nbsp; &nbsp;
-                      <a class="confirmDelete" title = "Delete Sub admin page" name= "Delete Sub admin " href="javascript:void(0)" record= "subadmin" recordid = "{{ $subadmin->id }}"><i style = "font-size:26px" class="bi bi-trash-fill"></i></a>                  
+                      <a class="confirmDelete" title = "Delete Sub admin page" name= "Delete Sub admin " href="javascript:void(0)" record= "subadmin" recordid = "{{ $subadmin->id }}"><i style = "font-size:26px" class="bi bi-trash-fill"></i></a>
+                      &nbsp; &nbsp; 
+                      <a href="{{ url('admin/update-role/'.$subadmin->id) }}"><i style ="font-size:26px"class="fa fa-unlock"></i></a>                  
 
                     </td>
                   </tr>

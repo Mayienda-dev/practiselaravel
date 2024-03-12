@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
+use App\Models\AdminsRole;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Session;
@@ -294,6 +295,60 @@ class AdminController extends Controller
             return redirect('admin/subadmins')->with('success_message', $message);
         }
         return view('admin.subadmins.add_edit_subadmins')->with(compact('title', 'subadmindata'));
+    }
+
+    // Update Roles
+    public function updateSubadminRoles(Request $request, $id){
+        $title = "Update Roles and Permissons for Sub admins";
+
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            // Delete the roles set before updating
+            AdminsRole::where('admin_id', $id)->delete();
+
+            foreach ($data as $key => $value) {
+                if(isset($value['view'])){
+                    $view = $value['view'];
+                }else{
+                    $view = 0;
+                }
+                if(isset($value['edit'])){
+                    $edit = $value['edit'];
+                }else{
+                    $edit = 0;
+                }
+                if(isset($value['full'])){
+                    $full = $value['full'];
+                }else{
+                    $full = 0;
+                }
+                
+                
+            }
+
+            
+
+            // Save the roles accepted to the database
+                $role = new AdminsRole;
+                $role->admin_id = $id;
+                $role->module = $key;
+                
+                $role->view_access = $view;
+                $role->edit_access = $edit;
+                $role->full_access = $full;
+                $role->save();
+            
+           
+
+            $message = "Roles succesfully updated";
+
+            return redirect()->back()->with('success_message', $message);
+
+        }
+
+        $subadminRoles = AdminsRole::where('admin_id', $id)->get()->toArray();
+        return view('admin.subadmins.update_roles')->with(compact('title', 'id', 'subadminRoles'));
     }
 
     // Delete Sub admin
