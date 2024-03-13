@@ -40,12 +40,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
-            @if(Session::get('page')=="dashboard")
-               @php $active = "active" @endphp
-            @else 
-               @php $active = "" @endphp
-   
-            @endif
+           
           <li class="nav-item">
           
               <a href="{{ url('admin/dashboard') }}" class="nav-link">
@@ -57,11 +52,7 @@
                     </p>
               </a>
           </li>
-          @if(Session::get('page')=="update-password" || Session::get('page')=="update-details")
-          @php $active= "active" @endphp
-          @else
-          @php $active = "" @endphp
-          @endif
+          @if(Auth::guard('admin')->user()->type=="admin" || Auth::guard('admin')->user()->type=="subadmin")
           <li class="nav-item menu-open">
             <a href="#" class="nav-link ">
               <i class="bi bi-gear-fill"></i>
@@ -73,24 +64,16 @@
             <ul class="nav nav-treeview">
              
               <li class="nav-item">
-                @if(Session::get('page')=="update-password")
-                  @php $active = "active" @endphp
-                @else
-                 @php $active = "" @endphp
-                @endif
+                
                 <a href="{{ url('admin/update-password') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Update Admin Password</p>
                 </a>
               </li>
+            
               
               <li class="nav-item">
-              @if(Session::get('page')=="update-details")
-                @php $active = "active" @endphp
-              @else
-                @php $active = "" @endphp
-
-              @endif
+             
                 <a href="{{ url('admin/update-details') }}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Update Admin Details</p>
@@ -99,6 +82,7 @@
               
             </ul>
           </li>
+        @endif
           
           @if(Session::get('page')=="dashboard")
             @php $active = "active" @endphp
@@ -106,6 +90,8 @@
              @php $active = "" @endphp
 
           @endif
+
+      @if(Auth::guard('admin')->user()->type=="admin" || Auth::guard('admin')->user()->type=="subadmin")
       <li class="nav-item">
      
          <a href="{{ url('admin/cms-pages') }}" class="nav-link">
@@ -117,17 +103,17 @@
                </p>
          </a>
      </li>
-     <li class="nav-item">
-          
-      <a href="{{ url('admin/subadmins') }}" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Sub Admins
-             
-              
-            </p>
-      </a>
-  </li>
+    @endif
+
+     @if(Auth::guard('admin')->user()->type=="admin")
+      <li class="nav-item">
+
+        <a href="{{ url('admin/subadmins') }}" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Sub Admins</p>
+        </a>
+      </li>
+    @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>

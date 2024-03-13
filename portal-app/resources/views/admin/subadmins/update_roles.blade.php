@@ -24,13 +24,13 @@
             </div>
             @endif
             @if(Session::has('error_message'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> {{  Session::get('error_message') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @endif
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Error!</strong> {{  Session::get('error_message') }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+            @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -82,7 +82,7 @@
                     <label for="cms_pages">CMS PAGES:</label>
                     <input type="checkbox" name="cms_pages[view]" value="1" @if(isset($viewCmsPages)) {{ $viewCmsPages }} @endif>View Access
                     <input type="checkbox" name="cms_pages[edit]" value="1" @if(isset($editCmsPages)) {{ $editCmsPages }} @endif>Edit Access
-                    <input type="checkbox" name="cms_pages[full]" value="1" @if(isset($editCmsPages)) {{ $editCmsPages }} @endif>Full Access
+                    <input type="checkbox" name="cms_pages[full]" value="1" @if(isset($fullCmsPages)) {{ $fullCmsPages }} @endif>Full Access
                    
                  
                 </div>
