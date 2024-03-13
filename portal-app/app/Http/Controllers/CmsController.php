@@ -16,7 +16,7 @@ class CmsController extends Controller
      */
     public function index()
     {
-        Session::put('page','cms-pages');
+        Session::put('page','cms_pages');
 
         $cmsPages = CmsPage::get()->toArray();
         // echo "<pre>"; print_r($cmsPages); die;

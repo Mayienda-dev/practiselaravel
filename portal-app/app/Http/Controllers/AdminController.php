@@ -65,7 +65,7 @@ class AdminController extends Controller
 
     // Admin update password
     public function updatePassword(Request $request){
-        Session::put('page', 'update-password');
+        Session::put('page', 'update_password');
         if($request->isMethod('post')){
             $data = $request->all();
             $rules = [
@@ -113,7 +113,7 @@ class AdminController extends Controller
     
     // Admin update Details
     public function updateDetails(Request $request){
-        Session::put('page', 'update-details');
+        Session::put('page', 'update_details');
         if($request->isMethod('post')){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -176,6 +176,7 @@ class AdminController extends Controller
 
     // Sub admin Display method
     public function subadmin(){
+        Session::put('page', 'subadmins');
         $subadmins = Admin::where('type', 'subadmin')->get();
 
         return view('admin.subadmins.subadmins')->with(compact('subadmins'));
