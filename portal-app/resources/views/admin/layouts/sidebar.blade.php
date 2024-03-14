@@ -111,6 +111,50 @@
         </a>
       </li>
     @endif
+
+    @if(Auth::guard('admin')->user()->type=="instructor")
+    <li class="nav-item menu-open">
+      <a  href="#" class="nav-link @if(Session::get('page') == 'update_instructors') active @endif ">
+        <i class="nav-icon bi bi-person-badge"></i>
+        <p>
+          Instructors
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+       
+        <li class="nav-item">
+          
+          <a href="{{ url('admin/update-instructors/personal') }}" class="nav-link @if(Session::get('page')== 'update_instructors') active @endif " >
+            <i class="far fa-circle nav-icon"></i>
+            <p>Personal details</p>
+          </a>
+        </li>
+      
+        
+        <li class="nav-item">
+       
+          <a  href="{{ url('admin/update-instructors/course') }}" class="nav-link @if(Session::get('page') == 'update_instructors') active  @endif ">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Course Details</p>
+          </a>
+        </li>
+        
+      </ul>
+    </li>
+
+    <li class="nav-item">
+       
+      <a  href="{{ url('admin/update-instructors/payment') }}" class="nav-link @if(Session::get('page') == 'update_instructors') active  @endif ">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Payment Details</p>
+      </a>
+    </li>
+    
+  </ul>
+</li>
+
+    @endif
           
         </ul>
       </nav>

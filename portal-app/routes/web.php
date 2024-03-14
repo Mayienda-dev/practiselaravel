@@ -78,6 +78,9 @@ Route::prefix('/admin')->group(function(){
 
         // Update Roles and Permissons for Sub admin
         Route::match(['get', 'post'], 'update-role/{id}', [AdminController::class, 'updateSubadminRoles']);
+
+        // Instructors Update Details
+        Route::match(['get', 'post'], 'update-instructors/{slug}', [AdminController::class, 'updateInstructors']);
        
     });
 

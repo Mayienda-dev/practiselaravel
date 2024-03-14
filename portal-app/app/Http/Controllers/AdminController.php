@@ -352,6 +352,18 @@ class AdminController extends Controller
         return view('admin.subadmins.update_roles')->with(compact('title', 'id', 'subadminRoles'));
     }
 
+    // Update Instructors Details
+    public function updateInstructors(Request $request, $slug){
+        if($slug=="personal"){
+
+        }else if($slug=="course"){
+
+        }else if($slug=="payment"){
+
+        }
+        return view('admin.instructors.update_instructors')->with(compact('slug'));
+    }
+
     // Delete Sub admin
     public function deleteSubadmin($id){
         Admin::where('id', $id)->delete();
